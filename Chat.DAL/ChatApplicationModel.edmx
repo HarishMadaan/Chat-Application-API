@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ChatApplicationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblApplicationFriendAssociation">
+          <Key>
+            <PropertyRef Name="ApplicationFriendAssociationId" />
+          </Key>
+          <Property Name="ApplicationFriendAssociationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberId" Type="int" />
+          <Property Name="FriendId" Type="int" />
+          <Property Name="RequestBy" Type="int" />
+          <Property Name="IsConfirm" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblApplicationUser">
+          <Key>
+            <PropertyRef Name="ApplicationUserId" />
+          </Key>
+          <Property Name="ApplicationUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserIdentityKey" Type="int" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="EmailId" Type="nvarchar(max)" />
+          <Property Name="MobileNo" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="nvarchar(max)" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifyBy" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblMember">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="EmailId" Type="nvarchar(max)" />
+          <Property Name="MobileNo" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="Gender" Type="nvarchar(max)" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="FatherName" Type="nvarchar(max)" />
+          <Property Name="MotherName" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifyBy" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SenderId" Type="int" />
+          <Property Name="Subject" Type="nvarchar(max)" />
+          <Property Name="MessageBody" Type="nvarchar(max)" />
+          <Property Name="ParentMessageId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="tblMessageRecipient">
+          <Key>
+            <PropertyRef Name="MessageRecipientId" />
+          </Key>
+          <Property Name="MessageRecipientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageId" Type="int" />
+          <Property Name="RecipientId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <Association Name="FK_tblApplicationFriendAssociation_tblMember">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblApplicationFriendAssociation" Type="Self.tblApplicationFriendAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationFriendAssociation">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblApplicationFriendAssociation_tblMember1">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblApplicationFriendAssociation" Type="Self.tblApplicationFriendAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationFriendAssociation">
+              <PropertyRef Name="FriendId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblApplicationFriendAssociation_tblMember2">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblApplicationFriendAssociation" Type="Self.tblApplicationFriendAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationFriendAssociation">
+              <PropertyRef Name="RequestBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblApplicationUser_tblMember">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblApplicationUser" Type="Self.tblApplicationUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationUser">
+              <PropertyRef Name="UserIdentityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMessage_tblMember">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblMessage" Type="Self.tblMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblMessage">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMessageRecipient_tblMember">
+          <End Role="tblMember" Type="Self.tblMember" Multiplicity="0..1" />
+          <End Role="tblMessageRecipient" Type="Self.tblMessageRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblMessageRecipient">
+              <PropertyRef Name="RecipientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMessageRecipient_tblMessage">
+          <End Role="tblMessage" Type="Self.tblMessage" Multiplicity="0..1" />
+          <End Role="tblMessageRecipient" Type="Self.tblMessageRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMessage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblMessageRecipient">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="USP_OurOldMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SenderId" Type="int" Mode="In" />
+          <Parameter Name="ReceiverId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ChatApplicationModelStoreContainer">
+          <EntitySet Name="tblApplicationFriendAssociation" EntityType="Self.tblApplicationFriendAssociation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblApplicationUser" EntityType="Self.tblApplicationUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMember" EntityType="Self.tblMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMessage" EntityType="Self.tblMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMessageRecipient" EntityType="Self.tblMessageRecipient" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblApplicationFriendAssociation_tblMember" Association="Self.FK_tblApplicationFriendAssociation_tblMember">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblApplicationFriendAssociation" EntitySet="tblApplicationFriendAssociation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblApplicationFriendAssociation_tblMember1" Association="Self.FK_tblApplicationFriendAssociation_tblMember1">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblApplicationFriendAssociation" EntitySet="tblApplicationFriendAssociation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblApplicationFriendAssociation_tblMember2" Association="Self.FK_tblApplicationFriendAssociation_tblMember2">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblApplicationFriendAssociation" EntitySet="tblApplicationFriendAssociation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblApplicationUser_tblMember" Association="Self.FK_tblApplicationUser_tblMember">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblApplicationUser" EntitySet="tblApplicationUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMessage_tblMember" Association="Self.FK_tblMessage_tblMember">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblMessage" EntitySet="tblMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMessageRecipient_tblMember" Association="Self.FK_tblMessageRecipient_tblMember">
+            <End Role="tblMember" EntitySet="tblMember" />
+            <End Role="tblMessageRecipient" EntitySet="tblMessageRecipient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMessageRecipient_tblMessage" Association="Self.FK_tblMessageRecipient_tblMessage">
+            <End Role="tblMessage" EntitySet="tblMessage" />
+            <End Role="tblMessageRecipient" EntitySet="tblMessageRecipient" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ChatApplicationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ChatApplicationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblApplicationUsers" EntityType="ChatApplicationModel.tblApplicationUser" />
+          <EntitySet Name="tblMembers" EntityType="ChatApplicationModel.tblMember" />
+          <AssociationSet Name="FK_tblApplicationUser_tblMember" Association="ChatApplicationModel.FK_tblApplicationUser_tblMember">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblApplicationUser" EntitySet="tblApplicationUsers" />
+          </AssociationSet>
+          <EntitySet Name="tblApplicationFriendAssociations" EntityType="ChatApplicationModel.tblApplicationFriendAssociation" />
+          <AssociationSet Name="FK_tblApplicationFriendAssociation_tblMember" Association="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblApplicationFriendAssociation" EntitySet="tblApplicationFriendAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblApplicationFriendAssociation_tblMember1" Association="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember1">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblApplicationFriendAssociation" EntitySet="tblApplicationFriendAssociations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblApplicationFriendAssociation_tblMember2" Association="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember2">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblApplicationFriendAssociation" EntitySet="tblApplicationFriendAssociations" />
+          </AssociationSet>
+          <EntitySet Name="tblMessages" EntityType="ChatApplicationModel.tblMessage" />
+          <EntitySet Name="tblMessageRecipients" EntityType="ChatApplicationModel.tblMessageRecipient" />
+          <AssociationSet Name="FK_tblMessage_tblMember" Association="ChatApplicationModel.FK_tblMessage_tblMember">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblMessage" EntitySet="tblMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMessageRecipient_tblMember" Association="ChatApplicationModel.FK_tblMessageRecipient_tblMember">
+            <End Role="tblMember" EntitySet="tblMembers" />
+            <End Role="tblMessageRecipient" EntitySet="tblMessageRecipients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblMessageRecipient_tblMessage" Association="ChatApplicationModel.FK_tblMessageRecipient_tblMessage">
+            <End Role="tblMessage" EntitySet="tblMessages" />
+            <End Role="tblMessageRecipient" EntitySet="tblMessageRecipients" />
+          </AssociationSet>
+          <FunctionImport Name="USP_OurOldMessage" ReturnType="Collection(ChatApplicationModel.USP_OurOldMessage_Result)">
+            <Parameter Name="SenderId" Mode="In" Type="Int32" />
+            <Parameter Name="ReceiverId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          </EntityContainer>
+        <EntityType Name="tblApplicationUser">
+          <Key>
+            <PropertyRef Name="ApplicationUserId" />
+          </Key>
+          <Property Name="ApplicationUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserIdentityKey" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblMember" Relationship="ChatApplicationModel.FK_tblApplicationUser_tblMember" FromRole="tblApplicationUser" ToRole="tblMember" />
+        </EntityType>
+        <EntityType Name="tblMember">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmailId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FatherName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MotherName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifyBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblApplicationUsers" Relationship="ChatApplicationModel.FK_tblApplicationUser_tblMember" FromRole="tblMember" ToRole="tblApplicationUser" />
+          <NavigationProperty Name="tblApplicationFriendAssociations" Relationship="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember" FromRole="tblMember" ToRole="tblApplicationFriendAssociation" />
+          <NavigationProperty Name="tblApplicationFriendAssociations1" Relationship="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember1" FromRole="tblMember" ToRole="tblApplicationFriendAssociation" />
+          <NavigationProperty Name="tblApplicationFriendAssociations2" Relationship="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember2" FromRole="tblMember" ToRole="tblApplicationFriendAssociation" />
+          <NavigationProperty Name="tblMessages" Relationship="ChatApplicationModel.FK_tblMessage_tblMember" FromRole="tblMember" ToRole="tblMessage" />
+          <NavigationProperty Name="tblMessageRecipients" Relationship="ChatApplicationModel.FK_tblMessageRecipient_tblMember" FromRole="tblMember" ToRole="tblMessageRecipient" />
+        </EntityType>
+        <Association Name="FK_tblApplicationUser_tblMember">
+          <End Type="ChatApplicationModel.tblMember" Role="tblMember" Multiplicity="0..1" />
+          <End Type="ChatApplicationModel.tblApplicationUser" Role="tblApplicationUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationUser">
+              <PropertyRef Name="UserIdentityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblApplicationFriendAssociation">
+          <Key>
+            <PropertyRef Name="ApplicationFriendAssociationId" />
+          </Key>
+          <Property Name="ApplicationFriendAssociationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="FriendId" Type="Int32" />
+          <Property Name="RequestBy" Type="Int32" />
+          <Property Name="IsConfirm" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="tblMember" Relationship="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember" FromRole="tblApplicationFriendAssociation" ToRole="tblMember" />
+          <NavigationProperty Name="tblMember1" Relationship="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember1" FromRole="tblApplicationFriendAssociation" ToRole="tblMember" />
+          <NavigationProperty Name="tblMember2" Relationship="ChatApplicationModel.FK_tblApplicationFriendAssociation_tblMember2" FromRole="tblApplicationFriendAssociation" ToRole="tblMember" />
+        </EntityType>
+        <Association Name="FK_tblApplicationFriendAssociation_tblMember">
+          <End Type="ChatApplicationModel.tblMember" Role="tblMember" Multiplicity="0..1" />
+          <End Type="ChatApplicationModel.tblApplicationFriendAssociation" Role="tblApplicationFriendAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationFriendAssociation">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblApplicationFriendAssociation_tblMember1">
+          <End Type="ChatApplicationModel.tblMember" Role="tblMember" Multiplicity="0..1" />
+          <End Type="ChatApplicationModel.tblApplicationFriendAssociation" Role="tblApplicationFriendAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationFriendAssociation">
+              <PropertyRef Name="FriendId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblApplicationFriendAssociation_tblMember2">
+          <End Type="ChatApplicationModel.tblMember" Role="tblMember" Multiplicity="0..1" />
+          <End Type="ChatApplicationModel.tblApplicationFriendAssociation" Role="tblApplicationFriendAssociation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblApplicationFriendAssociation">
+              <PropertyRef Name="RequestBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SenderId" Type="Int32" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MessageBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentMessageId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="tblMember" Relationship="ChatApplicationModel.FK_tblMessage_tblMember" FromRole="tblMessage" ToRole="tblMember" />
+          <NavigationProperty Name="tblMessageRecipients" Relationship="ChatApplicationModel.FK_tblMessageRecipient_tblMessage" FromRole="tblMessage" ToRole="tblMessageRecipient" />
+        </EntityType>
+        <EntityType Name="tblMessageRecipient">
+          <Key>
+            <PropertyRef Name="MessageRecipientId" />
+          </Key>
+          <Property Name="MessageRecipientId" Type="Int32" Nullable="false" />
+          <Property Name="MessageId" Type="Int32" />
+          <Property Name="RecipientId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="tblMember" Relationship="ChatApplicationModel.FK_tblMessageRecipient_tblMember" FromRole="tblMessageRecipient" ToRole="tblMember" />
+          <NavigationProperty Name="tblMessage" Relationship="ChatApplicationModel.FK_tblMessageRecipient_tblMessage" FromRole="tblMessageRecipient" ToRole="tblMessage" />
+        </EntityType>
+        <Association Name="FK_tblMessage_tblMember">
+          <End Type="ChatApplicationModel.tblMember" Role="tblMember" Multiplicity="0..1" />
+          <End Type="ChatApplicationModel.tblMessage" Role="tblMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblMessage">
+              <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMessageRecipient_tblMember">
+          <End Type="ChatApplicationModel.tblMember" Role="tblMember" Multiplicity="0..1" />
+          <End Type="ChatApplicationModel.tblMessageRecipient" Role="tblMessageRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMember">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="tblMessageRecipient">
+              <PropertyRef Name="RecipientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblMessageRecipient_tblMessage">
+          <End Type="ChatApplicationModel.tblMessage" Role="tblMessage" Multiplicity="0..1" />
+          <End Type="ChatApplicationModel.tblMessageRecipient" Role="tblMessageRecipient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMessage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblMessageRecipient">
+              <PropertyRef Name="MessageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="USP_OurOldMessage_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="SenderId" Nullable="true" />
+          <Property Type="String" Name="SenderName" Nullable="true" />
+          <Property Type="Int32" Name="RecipientId" Nullable="true" />
+          <Property Type="String" Name="ReceiverName" Nullable="true" />
+          <Property Type="String" Name="MessageBody" Nullable="true" />
+          <Property Type="DateTime" Name="MessageDate" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ChatApplicationModelStoreContainer" CdmEntityContainer="ChatApplicationEntities">
+          <EntitySetMapping Name="tblApplicationUsers">
+            <EntityTypeMapping TypeName="ChatApplicationModel.tblApplicationUser">
+              <MappingFragment StoreEntitySet="tblApplicationUser">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserIdentityKey" ColumnName="UserIdentityKey" />
+                <ScalarProperty Name="ApplicationUserId" ColumnName="ApplicationUserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMembers">
+            <EntityTypeMapping TypeName="ChatApplicationModel.tblMember">
+              <MappingFragment StoreEntitySet="tblMember">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifyBy" ColumnName="ModifyBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="MotherName" ColumnName="MotherName" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblApplicationFriendAssociations">
+            <EntityTypeMapping TypeName="ChatApplicationModel.tblApplicationFriendAssociation">
+              <MappingFragment StoreEntitySet="tblApplicationFriendAssociation">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsConfirm" ColumnName="IsConfirm" />
+                <ScalarProperty Name="RequestBy" ColumnName="RequestBy" />
+                <ScalarProperty Name="FriendId" ColumnName="FriendId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="ApplicationFriendAssociationId" ColumnName="ApplicationFriendAssociationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMessages">
+            <EntityTypeMapping TypeName="ChatApplicationModel.tblMessage">
+              <MappingFragment StoreEntitySet="tblMessage">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ParentMessageId" ColumnName="ParentMessageId" />
+                <ScalarProperty Name="MessageBody" ColumnName="MessageBody" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMessageRecipients">
+            <EntityTypeMapping TypeName="ChatApplicationModel.tblMessageRecipient">
+              <MappingFragment StoreEntitySet="tblMessageRecipient">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+                <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+                <ScalarProperty Name="MessageRecipientId" ColumnName="MessageRecipientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="USP_OurOldMessage" FunctionName="ChatApplicationModel.Store.USP_OurOldMessage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ChatApplicationModel.USP_OurOldMessage_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="RecipientId" ColumnName="RecipientId" />
+                <ScalarProperty Name="ReceiverName" ColumnName="ReceiverName" />
+                <ScalarProperty Name="MessageBody" ColumnName="MessageBody" />
+                <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
